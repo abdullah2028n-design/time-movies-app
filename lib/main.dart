@@ -257,7 +257,44 @@ class _MovieCard extends StatelessWidget {
   const _MovieCard({required this.movie});
   final Movie movie;
   @override
-  Widget build(BuildContext context) => GestureDetector(onTap: () => openMovie(context, movie), child: SizedBox(width: 142, child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Expanded(child: Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(4), boxShadow: const [BoxShadow(color: Colors.black54, blurRadius: 10, offset: Offset(0, 5))]), clipBehavior: Clip.antiAlias, child: Image.file(File(movie.thumbnailPath), fit: BoxFit.cover, width: double.infinity, errorBuilder: (_, __, ___) => Container(color: _surface, child: const Icon(Icons.movie, color: _muted)))), const SizedBox(height: 8), Text(movie.title, maxLines: 2, overflow: TextOverflow.ellipsis, style: const TextStyle(fontWeight: FontWeight.w600))])));
+  Widget build(BuildContext context) => GestureDetector(
+        onTap: () => openMovie(context, movie),
+        child: SizedBox(
+          width: 142,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    boxShadow: const [
+                      BoxShadow(color: Colors.black54, blurRadius: 10, offset: Offset(0, 5)),
+                    ],
+                  ),
+                  clipBehavior: Clip.antiAlias,
+                  child: Image.file(
+                    File(movie.thumbnailPath),
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                    errorBuilder: (_, __, ___) => Container(
+                      color: _surface,
+                      child: const Icon(Icons.movie, color: _muted),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                movie.title,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(fontWeight: FontWeight.w600),
+              ),
+            ],
+          ),
+        ),
+      );
 }
 
 class ImportDetails {
