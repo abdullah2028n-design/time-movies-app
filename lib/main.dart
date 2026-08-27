@@ -201,7 +201,11 @@ class HomeScreenState extends State<HomeScreen> {
       await refresh();
       if (mounted) ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Added to your offline library.')));
     } catch (error) {
-      if (copiedPath != null) await File(copiedPath).delete().catchError((_) {});
+      if (copiedPath != null) {
+        try {
+          await File(copiedPath).delete();
+        } catch (_) {}
+      }
       if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Could not import this video: $error')));
     }
   }
@@ -226,7 +230,9 @@ class HomeScreenState extends State<HomeScreen> {
 
   List<Widget> _groupedRows(List<Movie> values) {
     final categories = <String, List<Movie>>{};
-    for (final movie in values) categories.putIfAbsent(movie.category, () => []).add(movie);
+    for (final movie in values) {
+      categories.putIfAbsent(movie.category, () => []).add(movie);
+    }
     return categories.entries.map((entry) => SliverToBoxAdapter(child: MovieRow(title: entry.key, movies: entry.value))).toList();
   }
 }
@@ -374,7 +380,7 @@ class DiscoverScreen extends StatelessWidget {
 class ProfileTab extends StatelessWidget {
   const ProfileTab({super.key});
   @override
-  Widget build(BuildContext context) => _SimpleTab(icon: Icons.person_outline, title: 'My profile', message: 'Everything in TIME MOVIES is stored locally on this device.');
+  Widget build(BuildContext context) => const _SimpleTab(icon: Icons.person_outline, title: 'My profile', message: 'Everything in TIME MOVIES is stored locally on this device.');
 }
 class _SimpleTab extends StatelessWidget {
   const _SimpleTab({required this.icon, required this.title, required this.message});
