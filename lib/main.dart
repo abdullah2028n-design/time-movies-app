@@ -227,7 +227,7 @@ class _AppShellState extends State<AppShell> {
         selectedIndex: _index,
         onDestinationSelected: (index) => setState(() => _index = index),
         backgroundColor: const Color(0xFF101010),
-        indicatorColor: _red.withValues(alpha: 0x33),
+        indicatorColor: _red.withOpacity(0.2),
         destinations: const [
           NavigationDestination(
             icon: Icon(Icons.home_outlined),
@@ -490,7 +490,7 @@ class _HeroMovie extends StatelessWidget {
                 end: Alignment.bottomCenter,
                 colors: [
                   Colors.transparent,
-                  _background.withValues(alpha: 0.98),
+                  _background.withOpacity(0.98),
                 ],
               ),
             ),
@@ -614,7 +614,7 @@ class _MovieCard extends StatelessWidget {
                   right: 8,
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.black.withValues(alpha: 0.35),
+                      color: Colors.black.withOpacity(0.35),
                       borderRadius: BorderRadius.circular(18),
                     ),
                     child: PopupMenuButton<String>(
@@ -705,7 +705,7 @@ class _ImportDialogState extends State<ImportDialog> {
             ),
             const SizedBox(height: 14),
             DropdownButtonFormField<String>(
-              initialValue: _category,
+              value: _category,
               decoration: const InputDecoration(labelText: 'Genre'),
               items: _categories
                   .map(
@@ -850,7 +850,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       end: Alignment.bottomCenter,
                       colors: [
                         Colors.transparent,
-                        _background.withValues(alpha: 0.95),
+                        _background.withOpacity(0.95),
                       ],
                     ),
                   ),
