@@ -60,6 +60,25 @@ class LocalStorage {
     if (result == null) throw StateError('Could not create a thumbnail');
     return result;
   }
+
+  Future<void> deleteMedia(String videoPath, String thumbnailPath) async {
+    for (final path in [videoPath, thumbnailPath]) {
+      final file = File(path);
+      if (await file.exists()) await file.delete();
+    }
+  }
+
+  Future<int> importedStorageBytes() async {
+    var total = 0;
+    for (final folderName in ['videos', 'posters', 'thumbnails']) {
+      final folder = await _folder(folderName);
+      if (!await folder.exists()) continue;
+      await for (final entity in folder.list()) {
+        if (entity is File) total += await entity.length();
+      }
+    }
+    return total;
+  }
 }
 
 String extensionOf(String value) => extension(value).toLowerCase();
